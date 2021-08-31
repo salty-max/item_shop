@@ -16,7 +16,7 @@ public:
     int getMoney() const;
 
     void printShop();
-    bool purchaseItem(std::string itemName, Item &newItem);
+    bool purchaseItem(std::string itemName, Item &itemToSell);
     void addItem(Item newItem);
 private:
     std::string _name;

@@ -17,23 +17,25 @@ void Shop::setMoney(int money) { _money = money; }
 int Shop::getMoney() const { return _money; }
 
 void Shop::printShop() {
-    std::cout << "*** Welcome to " << _name << " ***\n\n";
-    std::list<Item>::iterator lit;
+    std::cout << "*** Welcome to " << _name << " ***" << std::endl;
+    std::list<Item>::iterator sit;
 
     int idx = 1;
 
-    for (lit = _items.begin(); lit != _items.end(); lit++) {
-        std::cout << idx << ". " << (*lit).getName() << "x" << (*lit).getQuantity() << std::endl;
+    for (sit = _items.begin(); sit != _items.end(); sit++) {
+        std::cout << idx << ". " << (*sit).getName() << " x " << (*sit).getQuantity() << " (" << (*sit).getValue() << "G)" << std::endl;
         idx++;
     }
+
+    std::cout << std::endl;
 }
 
-bool Shop::purchaseItem(std::string itemName, Item &newItem) {
+bool Shop::purchaseItem(std::string itemName, Item &itemToSell) {
     std::list<Item>::iterator lit;
     for (lit = _items.begin(); lit != _items.end(); lit++) {
         if ((*lit).getName() == itemName) {
-            newItem = (*lit);
-            newItem.setQuantity(1);
+            itemToSell = (*lit);
+            itemToSell.setQuantity(1);
             (*lit).removeOne();
 
             if ((*lit).getQuantity() == 0) {
@@ -49,12 +51,13 @@ bool Shop::purchaseItem(std::string itemName, Item &newItem) {
 
 void Shop::addItem(Item newItem) {
     std::list<Item>::iterator lit;
+
     for (lit = _items.begin(); lit != _items.end(); lit++) {
         if ((*lit).getName() == newItem.getName()) {
             (*lit).addOne();
             return;
-        } else {
-            _items.push_back(newItem);
         }
     }
+
+    _items.push_back(newItem);
 }

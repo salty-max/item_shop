@@ -16,11 +16,12 @@ public:
     void setName(std::string name);
     int getMoney() const;
     void setMoney(int money);
+    std::list<Item> getItems();
 
     void init(std::string name, int money);
     void printInventory();
     void addItem(Item newItem);
-    void removeItem(std::string itemName);
+    bool removeItem(std::string itemName, Item &itemToRemove);
 
 private:
     std::string _name;

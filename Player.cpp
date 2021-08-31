@@ -16,6 +16,9 @@ int Player::getMoney() const {
 void Player::setMoney(int money) {
     _money = money;
 }
+std::list<Item> Player::getItems() {
+    return _items;
+}
 
 void Player::init(std::string name, int money) {
     _name = name;
@@ -23,38 +26,51 @@ void Player::init(std::string name, int money) {
 }
 
 void Player::printInventory() {
-    std::cout << "*** " << _name << "'s inventory ***\n\n";
-    std::list<Item>::iterator lit;
+    std::cout << "*** " << _name << "'s inventory ***" << std::endl;
 
+    std::list<Item>::iterator lit;
     int idx = 1;
 
-    for (lit = _items.begin(); lit != _items.end(); lit++) {
-        std::cout << idx << ". " << (*lit).getName() << "x" << (*lit).getQuantity() << std::endl;
-        idx++;
-    }
+   if (!_items.empty()) {
+       for (lit = _items.begin(); lit != _items.end(); lit++) {
+           std::cout << idx << ". " << (*lit).getName() << " x " << (*lit).getQuantity() << std::endl;
+           idx++;
+       }
+   } else {
+       std::cout << "--- EMPTY ---" << std::endl;
+   }
+
+    std::cout << std::endl;
 }
 
 void Player::addItem(Item newItem) {
     std::list<Item>::iterator lit;
+
     for (lit = _items.begin(); lit != _items.end(); lit++) {
         if ((*lit).getName() == newItem.getName()) {
             (*lit).addOne();
             return;
-        } else {
-            _items.push_back(newItem);
         }
     }
+
+    _items.push_back(newItem);
 }
 
-void Player::removeItem(std::string itemName) {
+bool Player::removeItem(std::string itemName, Item &itemToRemove) {
     std::list<Item>::iterator lit;
     for (lit = _items.begin(); lit != _items.end(); lit++) {
         if ((*lit).getName() == itemName) {
+            itemToRemove = (*lit);
+            itemToRemove.setQuantity(1);
             (*lit).removeOne();
 
             if ((*lit).getQuantity() == 0) {
                 _items.erase(lit);
             }
+
+            return true;
         }
     }
+
+    return false;
 }
