@@ -8,11 +8,13 @@
 
 class Item {
 public:
-    Item(std::string name, int value);
+    Item(std::string name, int pristineValue, int usedValue);
     const std::string &getName() const;
     void setName(const std::string &name);
-    int getValue() const;
-    void setValue(int value);
+    int getPristineValue() const;
+    void setPristineValue(int value);
+    int getUsedValue() const;
+    void setUsedValue(int value);
     int getQuantity() const;
     void setQuantity(int quantity);
     void addOne();
@@ -20,6 +22,7 @@ public:
 
 private:
     std::string _name;
-    int _value;
+    int _pristineValue;
+    int _usedValue;
     int _quantity;
 };

@@ -4,9 +4,10 @@
 
 #include "Item.h"
 
-Item::Item(std::string name, int value) {
+Item::Item(std::string name, int pristineValue, int usedValue) {
     _name = name;
-    _value = value;
+    _pristineValue = pristineValue;
+    _usedValue = usedValue;
     _quantity = 1;
 }
 
@@ -16,11 +17,17 @@ const std::string &Item::getName() const {
 void Item::setName(const std::string &name) {
     _name = name;
 }
-int Item::getValue() const {
-    return _value;
+int Item::getPristineValue() const {
+    return _pristineValue;
 }
-void Item::setValue(int value) {
-    _value = value;
+void Item::setPristineValue(int value) {
+    _pristineValue = value;
+}
+int Item::getUsedValue() const {
+    return _usedValue;
+}
+void Item::setUsedValue(int value) {
+    _usedValue = value;
 }
 int Item::getQuantity() const {
     return _quantity;

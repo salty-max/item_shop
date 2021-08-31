@@ -26,14 +26,15 @@ void Player::init(std::string name, int money) {
 }
 
 void Player::printInventory() {
-    std::cout << "*** " << _name << "'s inventory ***" << std::endl;
+    std::cout << "\033[1m*** " << _name << "'s inventory ***\033[0m" << std::endl;
+    std::cout << "\033[1;34mMoney: " << _money << "G\033[0m" << std::endl;
 
     std::list<Item>::iterator lit;
     int idx = 1;
 
    if (!_items.empty()) {
        for (lit = _items.begin(); lit != _items.end(); lit++) {
-           std::cout << idx << ". " << (*lit).getName() << " x " << (*lit).getQuantity() << std::endl;
+           std::cout << idx << ". " << (*lit).getName() << " x " << (*lit).getQuantity() << " (" << (*lit).getUsedValue() << "G)" << std::endl;
            idx++;
        }
    } else {
@@ -41,6 +42,17 @@ void Player::printInventory() {
    }
 
     std::cout << std::endl;
+}
+
+bool Player::canAffordItem(std::string itemName, int availableMoney) {
+    std::list<Item>::iterator lit;
+    for (lit = _items.begin(); lit != _items.end(); lit++) {
+        if ((*lit).getName() == itemName) {
+            if ((*lit).getUsedValue() <= availableMoney) {
+                return true;
+            } else return false;
+        }
+    }
 }
 
 void Player::addItem(Item newItem) {

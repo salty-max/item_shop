@@ -20,6 +20,7 @@ public:
 
     void init(std::string name, int money);
     void printInventory();
+    bool canAffordItem(std::string itemName, int availableMoney);
     void addItem(Item newItem);
     bool removeItem(std::string itemName, Item &itemToRemove);
 
