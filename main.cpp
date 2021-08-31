@@ -115,7 +115,7 @@ void enterShop(Player &player, Shop &shop) {
         shop.printShop();
         player.printInventory();
 
-        std::cout << "Would you like to buy or sell? Q to quit. (B/S): ";
+        std::cout << "Would you like to (B)uy or (S)ell? Q to quit: ";
         std::cin >> input;
         std::cin.ignore(64, '\n');
         std::cin.clear();
